@@ -1,35 +1,28 @@
 import { CARD_STYLE } from 'constants';
-import React, { useRef } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
-export const Card = () => {
-  const cardRef = useRef();
-  console.log(cardRef.current.offsetLeft, window.innerWidth / 2);
+export const Card = ({ title }) => {
   return (
-    <>
-      <CardBox ref={cardRef}>
-        <CardTitle>Card Title will be placed here</CardTitle>
-      </CardBox>
-    </>
+    <CardBox>
+      <h1>{title}</h1>
+    </CardBox>
   );
 };
 
 const CardBox = styled.li`
-  position: relative;
-  width: ${CARD_STYLE.width};
-  height: ${CARD_STYLE.height};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
   flex-shrink: 0;
-  margin-right: 1rem;
-  transform-style: preserve-3d;
+  width: ${CARD_STYLE.width}rem;
+  height: ${CARD_STYLE.height}rem;
+  border: 2px solid tomato;
   border-radius: ${CARD_STYLE.radius};
   background-color: dodgerblue;
-`;
-
-const CardTitle = styled.h3`
-  position: absolute;
-  bottom: -15%;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 1.2rem;
-  font-weight: 500;
+  opacity: 0.7;
+  h1 {
+    font-size: 2rem;
+  }
 `;
