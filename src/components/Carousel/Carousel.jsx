@@ -3,20 +3,43 @@ import styled from 'styled-components';
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
 import { CARDS } from 'constants';
 import { Card } from './Card';
+import { SLIDER_STYLE } from 'constants';
+import { FIRST_INDEX } from 'constants';
+import { CARD_STYLE } from 'constants';
+import { CALC } from 'constants';
+import { LAST_INDEX } from 'constants';
 
 export const Carousel = () => {
-  const [cardIdx, setCardIdx] = useState(1);
+  const [currentIndex, setCurrentIndex] = useState(FIRST_INDEX);
+  const [move, setMove] = useState(CALC.firstPosition);
+  const moveLeft = () => {
+    if (currentIndex < FIRST_INDEX) {
+      setCurrentIndex(LAST_INDEX);
+      setMove(CALC.lastPosition);
+      return;
+    }
+    setCurrentIndex((el) => el - 1);
+  };
+  const moveRight = () => {
+    if (currentIndex > LAST_INDEX) {
+      setCurrentIndex(FIRST_INDEX);
+      setMove(CALC.firstPosition);
+      return;
+    }
+    setCurrentIndex((el) => el + 1);
+  };
+  console.log(currentIndex, move);
   return (
     <CarouselBox>
-      <Slider>
-        <Button className='leftArrow'>
-          <MdKeyboardArrowLeft />
-        </Button>
-        <Button className='rightArrow'>
-          <MdKeyboardArrowRight />
-        </Button>
+      <Button className='leftArrow' onClick={moveLeft}>
+        <MdKeyboardArrowLeft />
+      </Button>
+      <Button className='rightArrow' onClick={moveRight}>
+        <MdKeyboardArrowRight />
+      </Button>
+      <Slider move={move}>
         {CARDS.map((card, i) => (
-          <Card key={i} />
+          <Card key={i} title={card} />
         ))}
       </Slider>
     </CarouselBox>
@@ -27,20 +50,19 @@ const CarouselBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100vw;
-  height: 35vh;
+  width: ${SLIDER_STYLE.width}rem;
+  height: ${SLIDER_STYLE.height}rem;
+  overflow: scroll;
 `;
 const Slider = styled.ul`
   position: relative;
   display: flex;
   align-items: center;
   flex-wrap: nowrap;
-  overflow-x: hidden;
-  overflow-y: visible;
-  justify-content: center;
-  width: 100vw;
+  justify-content: flex-start;
+  width: 100%;
   height: 100%;
-  perspective: 500px;
+  transform: ${(props) => `translateX(-${props.move}rem)`};
 `;
 
 const Button = styled.button`
