@@ -1,33 +1,38 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
-import { CARDS } from 'constants';
 import { Card } from './Card';
-import { SLIDER_STYLE } from 'constants';
-import { FIRST_INDEX } from 'constants';
-import { CARD_STYLE } from 'constants';
-import { CALC } from 'constants';
-import { LAST_INDEX } from 'constants';
+import {
+  CARDS,
+  SLIDER_STYLE,
+  FIRST_INDEX,
+  CARD_STYLE,
+  CALC,
+  LAST_INDEX,
+} from 'constants';
 
 export const Carousel = () => {
   const [currentIndex, setCurrentIndex] = useState(FIRST_INDEX);
   const [move, setMove] = useState(CALC.firstPosition);
   const [transition, setTransition] = useState(SLIDER_STYLE.transition);
+  const [allowMove, setAllowMove] = useState(true);
   const moveLeft = () => {
-    if (currentIndex < FIRST_INDEX) {
+    if (currentIndex < FIRST_INDEX || !allowMove) {
       return;
     }
     setTransition(SLIDER_STYLE.transition);
     setCurrentIndex((el) => el - 1);
     setMove((distance) => distance - CARD_STYLE.width);
+    setAllowMove(false);
   };
   const moveRight = () => {
-    if (currentIndex > LAST_INDEX) {
+    if (currentIndex > LAST_INDEX || !allowMove) {
       return;
     }
     setTransition(SLIDER_STYLE.transition);
     setCurrentIndex((el) => el + 1);
     setMove((distance) => distance + CARD_STYLE.width);
+    setAllowMove(false);
   };
   const handleFlip = () => {
     if (currentIndex < FIRST_INDEX) {
@@ -36,17 +41,15 @@ export const Carousel = () => {
         setCurrentIndex(LAST_INDEX);
         setMove(CALC.lastPosition);
       }, 100);
-      return;
     } else if (currentIndex > LAST_INDEX) {
       setTransition('none');
       setTimeout(() => {
         setCurrentIndex(FIRST_INDEX);
         setMove(CALC.firstPosition);
       }, 100);
-      return;
     }
+    setAllowMove(true);
   };
-  console.log(currentIndex, move);
   return (
     <CarouselBox>
       <Button className='leftArrow' onClick={moveLeft}>
@@ -59,7 +62,7 @@ export const Carousel = () => {
         {CARDS.map((card, i) => (
           <Card
             key={i}
-            title={card}
+            actualNum={card}
             cardIndex={i}
             currentIndex={currentIndex}
             transition={transition}
@@ -76,7 +79,7 @@ const CarouselBox = styled.div`
   justify-content: center;
   width: ${SLIDER_STYLE.width}rem;
   height: ${SLIDER_STYLE.height}rem;
-  overflow: scroll;
+  overflow: hidden;
 `;
 const Slider = styled.ul`
   position: relative;
