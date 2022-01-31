@@ -1,10 +1,18 @@
-import { CARD_STYLE } from 'constants';
+import { CARD_STYLE, CARDS_INFO } from 'constants';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { FaGithub, FaChrome } from 'react-icons/fa';
 
-export const Card = ({ title, cardIndex, currentIndex, transition }) => {
+export const Card = ({ actualNum, cardIndex, currentIndex, transition }) => {
   const [myClass, setMyClass] = useState('');
+  let { title, desc, link, git, image } = CARDS_INFO[actualNum];
+  const handleLink = (e) => {
+    if (e.currentTarget.className === 'git') {
+      window.open(git);
+    } else if (e.currentTarget.className === 'chrome') {
+      window.open(link);
+    }
+  };
   useEffect(() => {
     const getClassName = () => {
       if (cardIndex === currentIndex) {
@@ -24,14 +32,15 @@ export const Card = ({ title, cardIndex, currentIndex, transition }) => {
     getClassName();
   }, [currentIndex, cardIndex]);
   return (
-    <CardBox className={myClass} transition={transition}>
+    <CardBox className={myClass} transition={transition} imgUrl={image}>
+      <Background src={image} alt='background' />
       <h3>{title}</h3>
-      <p>프로젝트에 대한 간략한 설명이 여기에 들어갈 예정</p>
+      <p>{desc}</p>
       <ButtonBox>
-        <button className='chrome'>
-          <FaChrome /> <span>배포 링크</span>
+        <button className='chrome' onClick={(e) => handleLink(e)}>
+          <FaChrome /> <span>링크</span>
         </button>
-        <button className='git'>
+        <button className='git' onClick={(e) => handleLink(e)}>
           <FaGithub /> <span>깃헙</span>
         </button>
       </ButtonBox>
@@ -49,7 +58,8 @@ const CardBox = styled.li`
   width: ${CARD_STYLE.width}rem;
   height: ${CARD_STYLE.height}rem;
   border-radius: ${CARD_STYLE.radius};
-  background-color: dodgerblue;
+  /* background-image: ${(props) => `url(${props.image})`}; */
+  /* background-color: dodgerblue; */
   z-index: 10;
   transition: ${(props) => props.transition};
   -webkit-box-reflect: below 10px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(80%, transparent), to(rgba(255, 255, 255, 0.15)));
@@ -60,12 +70,14 @@ const CardBox = styled.li`
     color: #ffffff;
   }
   h3 {
-    font-size: 2rem;
+    font-size: 1.8em;
     font-weight: 700;
-    bottom: 30%;
+    bottom: 28%;
   }
   p {
-    font-size: 1.2rem;
+    font-size: 1em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     bottom: 20%;
   }
   &.center {
@@ -74,6 +86,7 @@ const CardBox = styled.li`
   }
   &.around {
     z-index: 7;
+    filter: brightness(0.6);
   }
   &.around.left {
     transform: scale(0.8) translateX(${CARD_STYLE.width / 1.5}rem);
@@ -83,6 +96,7 @@ const CardBox = styled.li`
   }
   &.back {
     z-index: 3;
+    filter: brightness(0.6) blur(1px);
   }
   &.back.left {
     transform: scale(0.7) translateX(${CARD_STYLE.width * 1.5}rem);
@@ -92,19 +106,29 @@ const CardBox = styled.li`
   }
 `;
 
+const Background = styled.img`
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: ${CARD_STYLE.radius};
+`;
+
 const ButtonBox = styled.ul`
   display: flex;
   justify-content: space-between;
   position: absolute;
-  width: 15rem;
+  width: 13rem;
   height: 2.5rem;
   left: 5%;
   bottom: 5%;
   button {
     display: flex;
     align-items: center;
+    justify-content: center;
     height: 100%;
-    width: 7rem;
+    width: 6rem;
     border-radius: 5px;
     color: #ffffff;
     font-size: 0.9rem;

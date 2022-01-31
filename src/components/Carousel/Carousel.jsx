@@ -62,7 +62,7 @@ export const Carousel = () => {
         {CARDS.map((card, i) => (
           <Card
             key={i}
-            title={card}
+            actualNum={card}
             cardIndex={i}
             currentIndex={currentIndex}
             transition={transition}
