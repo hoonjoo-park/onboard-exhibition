@@ -9,7 +9,7 @@ export const CARD_STYLE = {
 export const SLIDER_STYLE = {
   width: 73.5,
   height: 43,
-  transition: 'transform 0.4s ease-in-out',
+  transition: 'transform 0.3s ease-in-out',
 };
 
 export const FIRST_INDEX = CARDS.indexOf(1);
