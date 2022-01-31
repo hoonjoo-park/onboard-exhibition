@@ -12,21 +12,39 @@ import { LAST_INDEX } from 'constants';
 export const Carousel = () => {
   const [currentIndex, setCurrentIndex] = useState(FIRST_INDEX);
   const [move, setMove] = useState(CALC.firstPosition);
+  const [transition, setTransition] = useState(SLIDER_STYLE.transition);
   const moveLeft = () => {
     if (currentIndex < FIRST_INDEX) {
-      setCurrentIndex(LAST_INDEX);
-      setMove(CALC.lastPosition);
       return;
     }
+    setTransition(SLIDER_STYLE.transition);
     setCurrentIndex((el) => el - 1);
+    setMove((distance) => distance - CARD_STYLE.width);
   };
   const moveRight = () => {
     if (currentIndex > LAST_INDEX) {
-      setCurrentIndex(FIRST_INDEX);
-      setMove(CALC.firstPosition);
       return;
     }
+    setTransition(SLIDER_STYLE.transition);
     setCurrentIndex((el) => el + 1);
+    setMove((distance) => distance + CARD_STYLE.width);
+  };
+  const handleFlip = () => {
+    if (currentIndex < FIRST_INDEX) {
+      setTransition('none');
+      setTimeout(() => {
+        setCurrentIndex(LAST_INDEX);
+        setMove(CALC.lastPosition);
+      }, 100);
+      return;
+    } else if (currentIndex > LAST_INDEX) {
+      setTransition('none');
+      setTimeout(() => {
+        setCurrentIndex(FIRST_INDEX);
+        setMove(CALC.firstPosition);
+      }, 100);
+      return;
+    }
   };
   console.log(currentIndex, move);
   return (
@@ -37,9 +55,15 @@ export const Carousel = () => {
       <Button className='rightArrow' onClick={moveRight}>
         <MdKeyboardArrowRight />
       </Button>
-      <Slider move={move}>
+      <Slider move={move} transition={transition} onTransitionEnd={handleFlip}>
         {CARDS.map((card, i) => (
-          <Card key={i} title={card} />
+          <Card
+            key={i}
+            title={card}
+            cardIndex={i}
+            currentIndex={currentIndex}
+            transition={transition}
+          />
         ))}
       </Slider>
     </CarouselBox>
@@ -63,6 +87,7 @@ const Slider = styled.ul`
   width: 100%;
   height: 100%;
   transform: ${(props) => `translateX(-${props.move}rem)`};
+  transition: ${(props) => props.transition};
 `;
 
 const Button = styled.button`
