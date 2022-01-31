@@ -79,7 +79,7 @@ const CarouselBox = styled.div`
   justify-content: center;
   width: ${SLIDER_STYLE.width}rem;
   height: ${SLIDER_STYLE.height}rem;
-  overflow: scroll;
+  overflow: hidden;
 `;
 const Slider = styled.ul`
   position: relative;
