@@ -13,7 +13,7 @@
 
 ## 배포 주소
 
-[https://preonboard-exhibition.netlify.app/](https://preonboard-exhibition.netlify.app/
+https://preonboard-exhibition.netlify.app/
 
 ## 사용 기술 및 스택
 
