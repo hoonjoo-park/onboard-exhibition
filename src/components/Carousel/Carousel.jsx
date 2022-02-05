@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
 import { Card } from './Card';
@@ -25,7 +25,7 @@ export const Carousel = () => {
     setMove((distance) => distance - CARD_STYLE.width);
     setAllowMove(false);
   };
-  const moveRight = () => {
+  const moveRight = (e) => {
     if (currentIndex > LAST_INDEX || !allowMove) {
       return;
     }
@@ -50,12 +50,37 @@ export const Carousel = () => {
     }
     setAllowMove(true);
   };
+  const buttonRef = useRef();
+  useEffect(() => {
+    buttonRef.current.focus();
+  }, []);
+  const handleKeyDown = (e) => {
+    if (e.keyCode === 37) {
+      moveLeft();
+      return;
+    } else if (e.keyCode === 39) {
+      moveRight();
+      return;
+    }
+  };
   return (
     <CarouselBox>
-      <Button className='leftArrow' onClick={moveLeft}>
+      <Button
+        className='leftArrow'
+        onClick={moveLeft}
+        onKeyDown={(e) => handleKeyDown(e)}
+        tabIndex={0}
+        ref={buttonRef}
+      >
         <MdKeyboardArrowLeft />
       </Button>
-      <Button className='rightArrow' onClick={moveRight}>
+      <Button
+        className='rightArrow'
+        onClick={moveRight}
+        onKeyDown={(e) => handleKeyDown(e)}
+        tabIndex={0}
+        ref={buttonRef}
+      >
         <MdKeyboardArrowRight />
       </Button>
       <Slider move={move} transition={transition} onTransitionEnd={handleFlip}>
