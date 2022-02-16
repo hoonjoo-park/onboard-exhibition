@@ -1,4 +1,12 @@
-import { Beef, Calculator, House, Study } from 'images/image';
+import {
+  Beef,
+  Calculator,
+  Gifticon,
+  House,
+  Manufacture,
+  Messenger,
+  Study,
+} from 'images/image';
 
 export const CARDS = [6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3];
 
@@ -25,25 +33,25 @@ export const CARDS_INFO = {
     image: House,
   },
   4: {
-    title: '제작 예정',
-    desc: '소고기 판매 플랫폼의 관리자 페이지를 가정하여 상품 등록 페이지를 구현',
-    link: 'https://wanted-admin-product.netlify.app/',
-    git: 'https://github.com/hoonjoo-park/admin-product-regist',
-    image: Study,
+    title: '제조업 견적 요청 페이지',
+    desc: '필터링과 토글 기능으로 조건에 맞는 견적 요청서가 보여지는 웹페이지',
+    link: 'https://estimate-board-page.herokuapp.com/',
+    git: 'https://github.com/hoonjoo-park/estimate-board',
+    image: Manufacture,
   },
   5: {
-    title: '제작 예정',
-    desc: '소고기 판매 플랫폼의 관리자 페이지를 가정하여 상품 등록 페이지를 구현',
-    link: 'https://wanted-admin-product.netlify.app/',
-    git: 'https://github.com/hoonjoo-park/admin-product-regist',
-    image: Calculator,
+    title: '메신저 웹',
+    desc: 'Redux를 활용한 웹 메신저',
+    link: 'https://messenger-web-b98e6.web.app/',
+    git: 'https://github.com/hoonjoo-park/messenger-web',
+    image: Messenger,
   },
   6: {
-    title: '제작 예정',
-    desc: '소고기 판매 플랫폼의 관리자 페이지를 가정하여 상품 등록 페이지를 구현',
-    link: 'https://wanted-admin-product.netlify.app/',
-    git: 'https://github.com/hoonjoo-park/admin-product-regist',
-    image: Beef,
+    title: '기프티콘 거래 플랫폼',
+    desc: '기프티콘을 거래할 수 있는 웹페이지를 구현',
+    link: 'https://gifticon-market.vercel.app/',
+    git: 'https://github.com/hoonjoo-park/gifticon-market',
+    image: Gifticon,
   },
   7: {
     title: '제작 예정',
