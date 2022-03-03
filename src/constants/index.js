@@ -1,11 +1,12 @@
 import {
   Beef,
   Calculator,
+  Flower,
   Gifticon,
   House,
   Manufacture,
   Messenger,
-  Study,
+  Supplements,
 } from 'images/image';
 
 export const CARDS = [6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3];
@@ -54,18 +55,18 @@ export const CARDS_INFO = {
     image: Gifticon,
   },
   7: {
-    title: '제작 예정',
-    desc: '소고기 판매 플랫폼의 관리자 페이지를 가정하여 상품 등록 페이지를 구현',
-    link: 'https://wanted-admin-product.netlify.app/',
-    git: 'https://github.com/hoonjoo-park/admin-product-regist',
-    image: House,
+    title: '영양제 검색 서비스',
+    desc: '무한스크롤과 병합정렬을 활용한 영양제 검색 서비스',
+    link: 'https://find-my-supplements.vercel.app/',
+    git: 'https://github.com/hoonjoo-park/find-my-supplements',
+    image: Supplements,
   },
   8: {
-    title: '제작 예정',
-    desc: '소고기 판매 플랫폼의 관리자 페이지를 가정하여 상품 등록 페이지를 구현',
-    link: 'https://wanted-admin-product.netlify.app/',
-    git: 'https://github.com/hoonjoo-park/admin-product-regist',
-    image: Study,
+    title: '꽃 배달 서비스 플랫폼',
+    desc: '꽃 구매 및 서비스 플랫폼을 바닐라 자바스크립트로 구현했습니다',
+    link: 'https://vanilajs-flower-shop.netlify.app/',
+    git: 'https://github.com/hoonjoo-park/vanilajs-flower-shop',
+    image: Flower,
   },
 };
 

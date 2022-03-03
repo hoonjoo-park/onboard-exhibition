@@ -16,24 +16,27 @@ export const Carousel = () => {
   const [move, setMove] = useState(CALC.firstPosition);
   const [transition, setTransition] = useState(SLIDER_STYLE.transition);
   const [allowMove, setAllowMove] = useState(true);
+
   const moveLeft = () => {
     if (currentIndex < FIRST_INDEX || !allowMove) {
       return;
     }
     setTransition(SLIDER_STYLE.transition);
-    setCurrentIndex((el) => el - 1);
-    setMove((distance) => distance - CARD_STYLE.width);
+    setCurrentIndex((prev) => prev - 1);
+    setMove((prev) => prev - CARD_STYLE.width);
     setAllowMove(false);
   };
+
   const moveRight = (e) => {
     if (currentIndex > LAST_INDEX || !allowMove) {
       return;
     }
     setTransition(SLIDER_STYLE.transition);
-    setCurrentIndex((el) => el + 1);
-    setMove((distance) => distance + CARD_STYLE.width);
+    setCurrentIndex((prev) => prev + 1);
+    setMove((prev) => prev + CARD_STYLE.width);
     setAllowMove(false);
   };
+
   const handleFlip = () => {
     if (currentIndex < FIRST_INDEX) {
       setTransition('none');
@@ -50,10 +53,14 @@ export const Carousel = () => {
     }
     setAllowMove(true);
   };
+
   const buttonRef = useRef();
   useEffect(() => {
-    buttonRef.current.focus();
-  }, []);
+    if (buttonRef.current) {
+      buttonRef.current.focus();
+    }
+  }, [buttonRef]);
+
   const handleKeyDown = (e) => {
     if (e.keyCode === 37) {
       moveLeft();
